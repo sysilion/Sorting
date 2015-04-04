@@ -7,10 +7,13 @@
 
 #include "sorting.h"
 
-int *input;
+void IS(int array[]);
+
+int *input = NULL;
 
 int main() {
-	int go, size, i, file;
+	int go, i, file;
+	int *input_dummy;
 	FILE *fp;
 
 	printf("\n\t\tSelect Menu");
@@ -29,30 +32,57 @@ int main() {
 	printf("select data : ");
 	scanf("%d", &file);
 
-
-	switch(file) {
+	switch (file) {
 	case 1:
-		fp = fopen("random10000.txt","r");
+		fp = fopen("1.unrank_uns_uns.txt", "r");
 		break;
 	case 2:
-		fp = fopen("random10000.txt","r");
+		fp = fopen("2.rank_uns_uns.txt", "r");
 		break;
 	case 3:
-		fp = fopen("random10000.txt","r");
+		fp = fopen("1.unrank_uns_uns.txt", "r");
+		input_dummy = (int *) malloc(sizeof(int) * DATA_SIZE / 2);
+		for (i = 0; i < DATA_SIZE / 2; i++) {
+			fscanf(fp, "%d, ", &input_dummy[i]);
+		}
+		IS(input_dummy); // half sorting
+		input = (int *) malloc(sizeof(int) * DATA_SIZE);
+		for (i = 0; i < DATA_SIZE; i++) { // fill data
+			if (i < 5000) {
+				input[i] = input_dummy[i];
+//				if(i%(DATA_SIZE/100) == 0) printf("%d ", input[i]);  // sorting check
+			} else {
+				fscanf(fp, "%d, ", &input[i]);
+			}
+		}
 		break;
 	case 4:
-		fp = fopen("random10000.txt","r");
+		fp = fopen("4.rank_sort_uns.txt", "r");
 		break;
 	case 5:
-		fp = fopen("random10000.txt","r");
+		fp = fopen("4.rank_sort_uns.txt", "r");
+		input_dummy = (int *) malloc(sizeof(int) * DATA_SIZE / 2);
+		for (i = 0; i < DATA_SIZE / 2; i++) {
+			fscanf(fp, "%d, ", &input_dummy[i]);
+		}
+		input = (int *) malloc(sizeof(int) * DATA_SIZE);
+		for (i = 0; i < DATA_SIZE / 2; i++) {
+			input[i] = input_dummy[i] * 2 - 1;
+			input[i + DATA_SIZE/2] = input_dummy[i] * 2;
+//			if(i%(DATA_SIZE/10/2) == 0) printf("%d ", input[i]); // sorting check
+//			if((i+DATA_SIZE/2)%(DATA_SIZE/10/2) == 0) printf("%d ", input[i+DATA_SIZE/2]); // sorting check
+		}
 		break;
 	}
 
-	input = (int *) malloc(sizeof(int) * DATA_SIZE);
-
-	for (i = 0; i < DATA_SIZE; i++) { // fill data
-		fscanf(fp, "%d, ", &input[i]);
+	if (input == NULL) {
+		input = (int *) malloc(sizeof(int) * DATA_SIZE);
+		for (i = 0; i < DATA_SIZE; i++) { // fill data
+			fscanf(fp, "%d, ", &input[i]);
+		}
 	}
+	free(input_dummy);
+	fclose(fp);
 
 	switch (go) {
 	case 1:
@@ -79,12 +109,23 @@ int main() {
 		break;
 	}
 
+	free(input);
 	return 0;
 }
 
-void swap(int *a, int *b){
+void swap(int *a, int *b) {
 	int temp;
 	temp = *a;
 	*a = *b;
 	*b = temp;
+}
+
+
+void IS(int array[]) {
+	int i, j;
+	for (i = 0; i < 5000; i++){
+	    for (j = i; j > 0 && array[j-1] > array[j]; j--){
+	        swap(&array[j], &array[j-1]);
+	    }
+	}
 }
