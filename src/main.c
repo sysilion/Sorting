@@ -48,7 +48,7 @@ int main() {
 		IS(input_dummy); // half sorting
 		input = (int *) malloc(sizeof(int) * DATA_SIZE);
 		for (i = 0; i < DATA_SIZE; i++) { // fill data
-			if (i < 5000) {
+			if (i < DATA_SIZE/2) {
 				input[i] = input_dummy[i];
 //				if(i%(DATA_SIZE/100) == 0) printf("%d ", input[i]);  // sorting check
 			} else {
@@ -67,8 +67,8 @@ int main() {
 		}
 		input = (int *) malloc(sizeof(int) * DATA_SIZE);
 		for (i = 0; i < DATA_SIZE / 2; i++) {
-			input[i] = input_dummy[i] * 2 - 1;
-			input[i + DATA_SIZE/2] = input_dummy[i] * 2;
+			input[i] = input_dummy[i] * 2;
+			input[i + DATA_SIZE/2] = input_dummy[i] * 2 -1;
 //			if(i%(DATA_SIZE/10/2) == 0) printf("%d ", input[i]); // sorting check
 //			if((i+DATA_SIZE/2)%(DATA_SIZE/10/2) == 0) printf("%d ", input[i+DATA_SIZE/2]); // sorting check
 		}
@@ -89,23 +89,23 @@ int main() {
 		bubble();
 		break;
 	case 2:
-		selectt();
+		insert();
 		break;
 	case 3:
-		insert();
+		selectt();
 		break;
 	case 4:
 		merge();
 		break;
 	case 5:
-//		quick();
+		quick();
 		break;
 	case 6:
 		bubble();
-		selectt();
 		insert();
+		selectt();
 		merge();
-//		quick();
+		quick();
 		break;
 	}
 
@@ -123,7 +123,7 @@ void swap(int *a, int *b) {
 
 void IS(int array[]) {
 	int i, j;
-	for (i = 0; i < 5000; i++){
+	for (i = 0; i < DATA_SIZE/2; i++){
 	    for (j = i; j > 0 && array[j-1] > array[j]; j--){
 	        swap(&array[j], &array[j-1]);
 	    }
