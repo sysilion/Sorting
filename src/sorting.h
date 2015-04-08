@@ -32,7 +32,9 @@ void insert();
 void Insert_Sort(int array[]);
 
 void merge();
-void Merge_Sort(int array[]);
+void Merge_Sort(int array[], int start, int end);
+void Merge(int array[], int start, int mid, int end, int dummy[]);
+void CopyArray(int B[], int A[], int n);
 
 void quick();
 void Quick_Sort(int array[]);

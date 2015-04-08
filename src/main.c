@@ -95,7 +95,7 @@ int main() {
 		insert();
 		break;
 	case 4:
-//		merge();
+		merge();
 		break;
 	case 5:
 //		quick();
@@ -104,7 +104,7 @@ int main() {
 		bubble();
 		selectt();
 		insert();
-//		merge();
+		merge();
 //		quick();
 		break;
 	}
